@@ -1,0 +1,37 @@
+version: "3.4"
+
+networks:
+  core:
+    driver: bridge
+
+x-logging: &default-logging
+  options:
+    max-size: "12m"
+    max-file: "5"
+  driver: json-file
+
+services:  
+  activemq:
+    image: activemq:test
+    restart: always
+    # Authorization configuration
+    # environment:
+    #   sslclient1: "CN=foo, O=bar"
+    #   sslclient3: "CN=fooooz, O=barz"
+    #   sslclient2: "CN=foooooooooo, O=baaaar"
+    # SSL authentification configuration 
+    # volumes:
+    #   - ./broker.ks:/opt/activemq/conf/broker.ks
+    #   - ./broker.ts:/opt/activemq/conf/broker.ts
+    # command:
+    #   -Djavax.net.ssl.keyStore=/opt/activemq/conf/broker.ks
+    #   -Djavax.net.ssl.keyStorePassword=System
+    #   -Djavax.net.ssl.trustStore=/opt/activemq/conf/broker.ts
+    #   -Djavax.net.ssl.trustStorePassword=System
+    ports:
+    - "5671:5671"
+    - "5672:5672"
+    - "8161:8161"
+    logging: *default-logging
+    networks:
+      - core
