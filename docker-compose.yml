@@ -15,19 +15,19 @@ services:
     image: activemq:test
     restart: always
     # Authorization configuration
-    # environment:
-    #   sslclient1: "CN=foo, O=bar"
-    #   sslclient3: "CN=fooooz, O=barz"
-    #   sslclient2: "CN=foooooooooo, O=baaaar"
+    environment:
+      sslclient1: "CN=foo, O=bar"
+      sslclient3: "CN=fooooz, O=barz"
+      sslclient2: "CN=foooooooooo, O=baaaar"
     # SSL authentification configuration 
-    # volumes:
-    #   - ./broker.ks:/opt/activemq/conf/broker.ks
-    #   - ./broker.ts:/opt/activemq/conf/broker.ts
-    # command:
-    #   -Djavax.net.ssl.keyStore=/opt/activemq/conf/broker.ks
-    #   -Djavax.net.ssl.keyStorePassword=System
-    #   -Djavax.net.ssl.trustStore=/opt/activemq/conf/broker.ts
-    #   -Djavax.net.ssl.trustStorePassword=System
+    volumes:
+      - ./broker.ks:/opt/activemq/conf/broker.ks
+      - ./broker.ts:/opt/activemq/conf/broker.ts
+    command:
+      - "-Djavax.net.ssl.keyStore=/opt/activemq/conf/broker.ks"
+      - "-Djavax.net.ssl.keyStorePassword=changeit"
+      - "-Djavax.net.ssl.trustStore=/opt/activemq/conf/broker.ts"
+      - "-Djavax.net.ssl.trustStorePassword=changeit"
     ports:
     - "5671:5671"
     - "5672:5672"
